@@ -1,0 +1,35 @@
+appId: com.desenrola.app
+productName: Desenrola
+directories:
+  buildResources: resources
+  output: dist
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron/*'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+asarUnpack:
+  - resources/**
+  - node_modules/better-sqlite3/**
+mac:
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    - NSDocumentsFolderUsageDescription: Desenrola needs access to store your financial data.
+  notarize: false
+  target:
+    - dmg
+    - zip
+  artifactName: '${name}-${version}-${os}.${ext}'
+win:
+  target:
+    - nsis
+  artifactName: '${name}-${version}-${os}.${ext}'
+linux:
+  target:
+    - AppImage
+    - deb
+  artifactName: '${name}-${version}-${os}.${ext}'
+  maintainer: desenrola.app
+  category: Office
+npmRebuild: false
