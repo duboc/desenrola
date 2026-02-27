@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  * {
+    @apply border-stone-200;
+  }
+
+  body {
+    @apply bg-stone-50 text-stone-800 font-sans antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-stone-300 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-stone-400;
+  }
+
+  /* Dark mode base */
+  .dark body {
+    @apply bg-stone-900 text-stone-100;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-stone-600;
+  }
+}
+
+@layer components {
+  /* Card component */
+  .card {
+    @apply bg-white rounded-2xl border border-stone-200 p-5 shadow-sm;
+  }
+  .dark .card {
+    @apply bg-stone-800 border-stone-700;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors shadow-sm;
+  }
+  .btn-secondary {
+    @apply bg-white hover:bg-stone-50 text-stone-700 font-semibold text-sm px-5 py-2.5 rounded-xl border border-stone-200 transition-colors shadow-sm;
+  }
+  .btn-ghost {
+    @apply bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors;
+  }
+  .btn-danger {
+    @apply bg-red-50 hover:bg-red-100 text-red-600 font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors;
+  }
+
+  .dark .btn-secondary {
+    @apply bg-stone-800 hover:bg-stone-700 text-stone-200 border-stone-600;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold;
+  }
+  .badge-success {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+  .badge-warning {
+    @apply bg-amber-100 text-amber-700;
+  }
+  .badge-danger {
+    @apply bg-red-100 text-red-700;
+  }
+  .badge-info {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-3 py-2 text-sm rounded-lg border border-stone-200 bg-white
+    focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent
+    placeholder:text-stone-400 transition-all;
+  }
+  .dark .input {
+    @apply bg-stone-800 border-stone-600 text-stone-100;
+  }
+
+  /* Currency input with JetBrains Mono */
+  .currency-input {
+    @apply input font-mono text-lg font-semibold;
+  }
+
+  /* Overline label */
+  .overline {
+    @apply text-xs font-bold text-stone-400 uppercase tracking-wider;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-stone-500
+    hover:bg-stone-100 hover:text-stone-700 transition-colors;
+  }
+  .nav-item.active {
+    @apply bg-emerald-50 text-emerald-700 font-semibold;
+  }
+  .dark .nav-item {
+    @apply text-stone-400 hover:bg-stone-800 hover:text-stone-200;
+  }
+  .dark .nav-item.active {
+    @apply bg-emerald-900/30 text-emerald-400;
+  }
+
+  /* Trend indicators */
+  .trend-up {
+    @apply text-emerald-600 font-bold;
+  }
+  .trend-down {
+    @apply text-red-500 font-bold;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply h-2 rounded-full bg-stone-200 overflow-hidden;
+  }
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+}
+
+@layer utilities {
+  /* Drag region for Electron title bar */
+  .drag-region {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+
+  /* Hide number input arrows */
+  .no-spin::-webkit-inner-spin-button,
+  .no-spin::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
