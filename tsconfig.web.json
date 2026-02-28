@@ -2,12 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "outDir": "./out/renderer",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "declaration": true,
+    "noEmit": false,
+    "outDir": "./out/renderer"
   },
   "include": ["src/**/*"]
 }

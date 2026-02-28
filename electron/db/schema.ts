@@ -30,7 +30,7 @@ export const categories = sqliteTable('categories', {
   type: text('type', { enum: ['expense', 'income'] }).notNull(),
   icon: text('icon'),
   color: text('color'),
-  parentId: integer('parent_id').references(() => categories.id),
+  parentId: integer('parent_id'),
   isSystem: integer('is_system', { mode: 'boolean' }).default(false),
   isDeductibleIrpf: integer('is_deductible_irpf', { mode: 'boolean' }).default(false),
   budgetDefault: real('budget_default'),
@@ -79,7 +79,7 @@ export const recurringBills = sqliteTable('recurring_bills', {
   }).default('monthly'),
   provider: text('provider'),
   paymentMethod: text('payment_method', {
-    enum: ['boleto', 'debito_automatico', 'pix', 'credit_card']
+    enum: ['boleto', 'debit_card', 'pix', 'credit_card', 'transfer', 'cash', 'vale_refeicao', 'vale_alimentacao']
   }),
   autoPay: integer('auto_pay', { mode: 'boolean' }).default(false),
   lateFeePercent: real('late_fee_percent'),
