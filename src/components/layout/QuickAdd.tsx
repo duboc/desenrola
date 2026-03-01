@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { X, Plus, Minus } from 'lucide-react'
 import { useAppStore } from '@/stores/appStore'
+import { useAccounts } from '@/api/useAccounts'
+import { useCreateTransaction } from '@/api/useTransactions'
 import type { TransactionType, PaymentMethod } from '@/types/models'
 
 const PAYMENT_METHODS: { value: PaymentMethod; label: string }[] = [
@@ -15,12 +17,23 @@ const PAYMENT_METHODS: { value: PaymentMethod; label: string }[] = [
 
 export function QuickAdd() {
   const { quickAddOpen, closeQuickAdd } = useAppStore()
+  const { data: accounts = [] } = useAccounts()
+  const createTransaction = useCreateTransaction()
+
   const [type, setType] = useState<TransactionType>('expense')
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
+  const [accountId, setAccountId] = useState<number | ''>('')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('pix')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Set default account when accounts load
+  useEffect(() => {
+    if (accounts.length > 0 && !accountId) {
+      setAccountId(accounts[0].id)
+    }
+  }, [accounts, accountId])
 
   // Keyboard shortcut: Ctrl+N
   useEffect(() => {
@@ -46,14 +59,14 @@ export function QuickAdd() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!amount || !description) return
+    if (!amount || !description || !accountId) return
 
     const numAmount = parseFloat(amount.replace(',', '.'))
     const finalAmount = type === 'expense' ? -Math.abs(numAmount) : Math.abs(numAmount)
 
     try {
-      await window.api.transactions.create({
-        accountId: 1, // Default to first account
+      await createTransaction.mutateAsync({
+        accountId: accountId as number,
         amount: finalAmount,
         description,
         date,
@@ -148,6 +161,19 @@ export function QuickAdd() {
               />
             </div>
 
+            {/* Account selector */}
+            {accounts.length > 0 && (
+              <select
+                value={accountId}
+                onChange={(e) => setAccountId(parseInt(e.target.value))}
+                className="input"
+              >
+                {accounts.map((acc) => (
+                  <option key={acc.id} value={acc.id}>{acc.name}</option>
+                ))}
+              </select>
+            )}
+
             {/* Date + Payment method row */}
             <div className="flex gap-3">
               <input
@@ -168,8 +194,12 @@ export function QuickAdd() {
             </div>
 
             {/* Submit */}
-            <button type="submit" className="btn-primary w-full">
-              Adicionar
+            <button
+              type="submit"
+              className="btn-primary w-full"
+              disabled={createTransaction.isPending || !amount || !description || !accountId}
+            >
+              {createTransaction.isPending ? 'Salvando...' : 'Adicionar'}
             </button>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import {
-  LayoutDashboard, ArrowLeftRight, Calendar, RefreshCw,
+  LayoutDashboard, Wallet, ArrowLeftRight, Calendar, RefreshCw,
   Briefcase, ClipboardList, Target, TrendingUp,
   Landmark, Bot, Settings, ChevronLeft, ChevronRight,
 } from 'lucide-react'
@@ -8,7 +8,7 @@ import { useAppStore } from '@/stores/appStore'
 import { NAV_ITEMS } from '@/lib/constants'
 
 const iconMap: Record<string, React.ComponentType<any>> = {
-  LayoutDashboard, ArrowLeftRight, Calendar, RefreshCw,
+  LayoutDashboard, Wallet, ArrowLeftRight, Calendar, RefreshCw,
   Briefcase, ClipboardList, Target, TrendingUp,
   Landmark, Bot,
 }

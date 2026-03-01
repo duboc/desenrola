@@ -4,6 +4,7 @@ import { MainLayout } from '@/components/layout/MainLayout'
 
 // Pages
 import DashboardPage from '@/pages/Dashboard'
+import AccountsPage from '@/pages/Accounts'
 import TransactionsPage from '@/pages/Transactions'
 import BillsPage from '@/pages/Bills'
 import ParcelasPage from '@/pages/Parcelas'
@@ -36,6 +37,7 @@ export default function App() {
           {/* Main app with sidebar layout */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<DashboardPage />} />
+            <Route path="/accounts" element={<AccountsPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />
             <Route path="/bills" element={<BillsPage />} />
             <Route path="/parcelas" element={<ParcelasPage />} />

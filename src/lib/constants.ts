@@ -34,6 +34,7 @@ export const ACCOUNT_COLORS = [
 // ─── Navigation Items ───────────────────────────────────────────
 export const NAV_ITEMS = [
   { id: 'dashboard', label: 'Visão Geral', icon: 'LayoutDashboard', path: '/' },
+  { id: 'accounts', label: 'Contas', icon: 'Wallet', path: '/accounts' },
   { id: 'transactions', label: 'Transações', icon: 'ArrowLeftRight', path: '/transactions' },
   { id: 'bills', label: 'Contas a Pagar', icon: 'Calendar', path: '/bills' },
   { id: 'parcelas', label: 'Parcelas', icon: 'RefreshCw', path: '/parcelas' },
