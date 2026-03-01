@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, real, uniqueIndex } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, real, uniqueIndex, type AnySQLiteColumn } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
 // ─── Accounts ───────────────────────────────────────────────────
@@ -30,7 +30,7 @@ export const categories = sqliteTable('categories', {
   type: text('type', { enum: ['expense', 'income'] }).notNull(),
   icon: text('icon'),
   color: text('color'),
-  parentId: integer('parent_id').references(() => categories.id),
+  parentId: integer('parent_id').references((): AnySQLiteColumn => categories.id),
   isSystem: integer('is_system', { mode: 'boolean' }).default(false),
   isDeductibleIrpf: integer('is_deductible_irpf', { mode: 'boolean' }).default(false),
   budgetDefault: real('budget_default'),
