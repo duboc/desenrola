@@ -11,18 +11,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "composite": true,
     "paths": {
       "@/*": ["./src/*"],
       "@electron/*": ["./electron/*"]
     },
     "baseUrl": "."
   },
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.web.json" }
-  ]
+  "include": ["src/**/*", "electron/**/*"],
+  "exclude": ["node_modules", "out", "dist"]
 }

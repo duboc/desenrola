@@ -59,6 +59,15 @@ export function registerBillHandlers(ipcMain: IpcMain): void {
     const bill = db.select().from(recurringBills).where(eq(recurringBills.id, billId)).get()
     if (!bill) throw new Error('Bill not found')
 
+    // Map bill payment method to transaction payment method
+    const billToTxnPaymentMethod: Record<string, string> = {
+      boleto: 'boleto',
+      debito_automatico: 'debit_card',
+      pix: 'pix',
+      credit_card: 'credit_card',
+    }
+    const paymentMethod = billToTxnPaymentMethod[bill.paymentMethod || 'boleto'] || 'boleto'
+
     // Create a transaction for this payment
     const txn = db.insert(transactions).values({
       accountId: bill.accountId || 1,
@@ -66,8 +75,8 @@ export function registerBillHandlers(ipcMain: IpcMain): void {
       amount: -Math.abs(amount),
       description: `Pagamento: ${bill.name}`,
       date,
-      type: 'expense',
-      paymentMethod: bill.paymentMethod || 'boleto',
+      type: 'expense' as const,
+      paymentMethod: paymentMethod as 'boleto' | 'pix' | 'credit_card' | 'debit_card',
       isRecurring: true,
       recurringBillId: billId,
     }).returning().get()
