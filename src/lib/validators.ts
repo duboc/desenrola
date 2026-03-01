@@ -43,7 +43,7 @@ export const recurringBillSchema = z.object({
   dueDay: z.number().min(1).max(31),
   frequency: z.enum(['monthly', 'yearly', 'bimonthly', 'custom']).default('monthly'),
   provider: z.string().optional(),
-  paymentMethod: z.enum(['boleto', 'debito_automatico', 'pix', 'credit_card']).optional(),
+  paymentMethod: z.enum(['boleto', 'debit_card', 'pix', 'credit_card', 'transfer', 'cash', 'vale_refeicao', 'vale_alimentacao']).optional(),
   autoPay: z.boolean().default(false),
   reminderDaysBefore: z.number().default(3),
 })
